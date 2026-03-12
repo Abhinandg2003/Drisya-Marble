@@ -5,33 +5,20 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import CollectionsCarousel from '../components/Collectionscarousel'
 import ProductsCarousel from '../components/Productscarousel'
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Play } from 'lucide-react';
 import Browsebytex from '../components/Browsebytex'
 import ServicesCarousel from '../components/ServicesCarousel'
+import Showroom from '../components/Showroom'
 
 // ScrollTrigger is already registered and synced with Lenis in LenisContext.
 // We just use it here — no need to register or create RAF loops.
 gsap.registerPlugin(ScrollTrigger)
 
+
 const heroSlides = [
-  {
-    src: '/images/hero/hero1.jpg',
-    poster: '/images/hero/hero1.jpg',
-    title: 'Italian Marble',
-    subtitle: 'Quarried from the mountains of Carrara',
-  },
-  {
-    src: 'https://assets.mixkit.co/videos/preview/mixkit-rocky-desert-landscape-2743-large.mp4',
-    poster: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80',
-    title: 'Earth & Stone',
-    subtitle: 'Textures forged over millennia',
-  },
-  {
-    src: 'https://assets.mixkit.co/videos/preview/mixkit-white-walls-interior-1117-large.mp4',
-    poster: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1920&q=80',
-    title: 'Modern Surfaces',
-    subtitle: 'Where architecture meets artistry',
-  },
+  { src: '/images/hero/hero1.mp4', poster: '/images/hero/hero1.jpg' },
+  { src: 'https://assets.mixkit.co/videos/preview/mixkit-rocky-desert-landscape-2743-large.mp4', poster: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80' },
+  { src: 'https://assets.mixkit.co/videos/preview/mixkit-white-walls-interior-1117-large.mp4', poster: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1920&q=80' },
 ]
 
 function VideoCarousel() {
@@ -51,37 +38,23 @@ function VideoCarousel() {
     return () => clearInterval(timer)
   }, [current])
 
-useEffect(() => {
-  const videos = videoRefs.current
-  if (!videos.length) return
-
-  const currentVideo = videos[current]
-  const previousVideo = videos[prevIndex.current]
-
-  if (currentVideo) {
-    currentVideo.play().catch(() => {})
-
-    gsap.to(currentVideo, {
-      opacity: 1,
-      duration: 1.4,
-      ease: "power2.out"
-    })
-  }
-
-  if (previousVideo && previousVideo !== currentVideo) {
-    gsap.to(previousVideo, {
-      opacity: 0,
-      duration: 1.4,
-      ease: "power2.out",
-      onComplete: () => {
-        previousVideo.pause()
-        previousVideo.currentTime = 0
-      }
-    })
-  }
-
-  prevIndex.current = current
-}, [current])
+  useEffect(() => {
+    const videos = videoRefs.current
+    if (!videos.length) return
+    const currentVideo  = videos[current]
+    const previousVideo = videos[prevIndex.current]
+    if (currentVideo) {
+      currentVideo.play().catch(() => {})
+      gsap.to(currentVideo, { opacity: 1, duration: 1.4, ease: 'power2.out' })
+    }
+    if (previousVideo && previousVideo !== currentVideo) {
+      gsap.to(previousVideo, {
+        opacity: 0, duration: 1.4, ease: 'power2.out',
+        onComplete: () => { previousVideo.pause(); previousVideo.currentTime = 0 },
+      })
+    }
+    prevIndex.current = current
+  }, [current])
 
   return (
     <div className="relative h-screen overflow-hidden">
@@ -89,36 +62,46 @@ useEffect(() => {
         <div key={i} className="absolute inset-0">
           <video
             ref={el => videoRefs.current[i] = el}
-            src={slide.src}
-            poster={slide.poster}
+            src={slide.src} poster={slide.poster}
             muted loop playsInline
             className="absolute inset-0 w-full h-full object-cover opacity-0"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-l from-[#290908]/0 via-[#290908]/50 to-[#290908]/100" />
         </div>
       ))}
 
-      <div className="relative z-10 h-full flex flex-col justify-end items-center pb-32 px-8 md:px-16 max-w-7xl mx-auto w-full">
-        <div className={`transition-all duration-700 delay-200 ${transitioning ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
-          <h1 className="font-display text-5xl md:text-6xl text-center text-white leading-none mb-4">
-            {heroSlides[current].title}
-          </h1>
-          <p className="text-white text-lg tracking-widest mb-8 text-center">
-            {heroSlides[current].subtitle}
-          </p>
-          <div className="flex justify-center">
-            {/* <Link to="/products" className="inline-block bg-[#782423] font-medium text-white text-[15px] tracking-wide px-8 py-4 hover:bg-[#a98424] transition-colors duration-300">
-              Explore Products
-            </Link> */}
-            <a href="/products">
-            <p className="mt-2 flex justify-center items-center text-[15px] text-semibold tracking-wide   text-white ">Explore <span> <ArrowRight className=' h-7 w-7 flex justify-center ml-2 bg-[#782423] rounded-full text-white p-1'/> </span> </p>
-            
-            <span></span>
-        </a>
-          </div>
+      {/* Static text — never changes */}
+      <div className="relative z-10 h-full  flex flex-col top-[25vh] md:top-[35vh] items-start pb-32 px-10 md:px-40 text-center">
+        <h1 className="font-display text-3xl md:text-6xl text-[#fdfaef] leading-tight mb-5 text-left">
+          Kerala's Premier Destination<br />for Tiles & Sanitary Elegance
+        </h1>
+
+        <div className="w-full h-px max-w-3xl  bg-[#fdfaef] mb-4" />
+
+        
+        <p className="text-[#fdfaef] text-xl md:text-2xl font-display tracking-widest mb-10 text-start">
+          27+ Years of Excellence in Tiles, Bath Fittings & Granite
+        </p>
+        <div className="flex items-center gap-4 flex-wrap justify-start">
+          <Link
+            to="https://maps.app.goo.gl/oy7Xv6k6CK4PmXvc8"
+            className="bg-gradient-to-r from-[#ddb65b] via-[#f2df8f] to-[#ddb65b] font-medium text-[#1a1a1a] text-[15px] tracking-wider  px-5 py-2.5 rounded-lg hover:bg-[#a64241] transition-colors duration-300" target='none'
+          >
+            Explore Our Showroom
+          </Link>
+          <Link
+            to="https://www.youtube.com/@drisyamarble"
+            className=" text-[#1a1a1a] text-[15px] font-medium tracking-wider bg-gradient-to-r from-[#ddb65b] via-[#f2df8f] to-[#ddb65b]  px-5 py-2.5 rounded-xl hover:bg-white hover:text-[#1A1A1A] transition-colors duration-300"
+          >
+            <div className='flex items-center'>
+            <Play className='h-5 w-5 mr-3 bg-[#782423] p-1 fill-[#f2df8f] text-[#f2df8f] rounded-full'/>
+            Watch video
+            </div>
+          </Link>
         </div>
       </div>
 
+      {/* Slide dots */}
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-3 z-10">
         {heroSlides.map((_, i) => (
           <button key={i} onClick={() => goTo(i)}
@@ -128,11 +111,11 @@ useEffect(() => {
       </div>
 
       <button onClick={() => goTo((current - 1 + heroSlides.length) % heroSlides.length)}
-        className="absolute left-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12  flex items-center justify-center text-white ">
+        className="absolute left-0 top-1/2   -translate-y-1/2 z-10 w-12 h-12 hidden  lg:flex items-center justify-center text-white">
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" /></svg>
       </button>
       <button onClick={() => goTo((current + 1) % heroSlides.length)}
-        className="absolute right-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12  flex items-center justify-center text-white">
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 hidden lg:flex items-center justify-center text-white">
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" /></svg>
       </button>
     </div>
@@ -142,14 +125,52 @@ useEffect(() => {
 
 function StickyLabel() {
   return (
-    <div className="sticky top-0 left-6 z-40 pointer-events-none">
-      <h1 className="text-[30px] tracking-wide leading-tight font-medium  text-white pl-10 py-10 ">
-        Crafted <br />Surfaces
+    <div className="sticky top-0  z-40  pointer-events-none">
+      <h1 className="text-[50px] tracking-wide flex justify-center text-center font-display leading-tight font-medium  text-white py-5 ">
+        2025 Grand Opening Event
       </h1>
     </div>
   )
 }
 
+function StickyLabelbottom() {
+  return (
+    <div className="sticky   z-40  pointer-events-none">
+      <h1 className="text-[30px] tracking-wide flex justify-center mt-[40vh] lg:mt-[60vh] text-center font-display leading-tight font-medium px-2 text-white  pt-5 ">
+        From a Fine Marble Outlet to Kerala's Largest Lifestyle Brand
+      </h1>
+      <div className="w-full h-px max-w-3xl mx-auto mt-3 bg-white mb-4" />
+      <p className="text-[20px]   tracking-wide mx-auto mt-5 max-w-2xl text-center  leading-tight font-medium px-2 text-white ">
+        "We started with a vision of trust and quality. Today, we help you build the home of your dreams"
+      </p>
+    </div>
+  )
+}
+
+
+function StickyLabel2() {
+  return (
+    <div className="sticky top-0  z-40  pointer-events-none">
+      <h1 className="text-[50px] tracking-wide flex justify-center text-center font-display leading-tight font-medium  text-white py-5 ">
+        Visit Our Showroom
+      </h1>
+    </div>
+  )
+}
+
+function StickyLabelbottom2() {
+  return (
+    <div className="sticky   z-40  pointer-events-none">
+      <h1 className="text-[30px] tracking-wide flex justify-center mt-[40vh] lg:mt-[60vh] text-center font-display leading-tight font-medium px-2 text-white  pt-5 ">
+        Kerala's Biggest Tile Showroom
+      </h1>
+      <div className="w-full h-px max-w-md mx-auto mt-3 bg-white mb-4" />
+      <p className="text-[20px]   tracking-wide mx-auto mt-5 max-w-2xl text-center  leading-tight font-medium px-2 text-white ">
+        Vadakkanchery, Chittur
+      </p>
+    </div>
+  )
+}
 
 // ─── Parallax Section ─────────────────────────────────────────────────────────
 // Image is 120% tall, starting at top: -10% so it's centered at rest.
@@ -220,6 +241,74 @@ useEffect(() => {
 }
 
 
+function ParallaxSectionnew() {
+  const sectionRef = useRef(null)
+  const imgRef     = useRef(null)
+
+useEffect(() => {
+  const ctx = gsap.context(() => {
+
+    ScrollTrigger.matchMedia({
+
+      // Desktop (keep EXACTLY your current effect)
+      "(min-width: 1024px)": function () {
+        gsap.fromTo(imgRef.current,
+          { yPercent: -70 },
+          {
+            yPercent: 60,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 0,
+            },
+          }
+        )
+      },
+
+      // Mobile & Tablet
+      "(max-width: 1023px)": function () {
+        gsap.fromTo(imgRef.current,
+          { yPercent: -70 },   // smaller movement
+          {
+            yPercent: -10,      // smaller movement
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 0,     // no smoothing delay
+            },
+          }
+        )
+      }
+
+    })
+
+  }, sectionRef)
+
+  return () => ctx.revert()
+}, [])
+
+  return (
+  <section ref={sectionRef} className="relative h-screen overflow-hidden">
+
+    <picture className="absolute left-0 w-full object-cover object-center pointer-events-none h-[100%] top-[20%] lg:h-[120%] lg:-top-[10%]">
+      <source srcSet="/images/parallaxnew2.avif" type="image/avif" />
+
+      <img
+        ref={imgRef}
+        src="/images/parallaxnew2.jpg"
+        alt=""
+        className="absolute left-0 w-full object-cover object-center pointer-events-none h-[100%] top-[20%] lg:h-[120%] lg:-top-[10%]"
+      />
+    </picture>
+
+  </section>
+)
+}
+
 function ParallaxSection2() {
   const sectionRef = useRef(null)
   const imgRef     = useRef(null)
@@ -249,9 +338,9 @@ useEffect(() => {
       // Mobile & Tablet
       "(max-width: 1023px)": function () {
         gsap.fromTo(imgRef.current,
-          { yPercent: -40 },   // smaller movement
+          { yPercent: -70 },   // smaller movement
           {
-            yPercent: 10,      // smaller movement
+            yPercent: -10,      // smaller movement
             ease: "none",
             scrollTrigger: {
               trigger: sectionRef.current,
@@ -271,15 +360,20 @@ useEffect(() => {
 }, [])
 
   return (
-    <section ref={sectionRef} className="relative h-screen overflow-hidden">
+  <section ref={sectionRef} className="relative h-screen overflow-hidden">
+
+    <picture className="absolute left-0 w-full object-cover object-center pointer-events-none h-[100%] top-[20%] lg:h-[120%] lg:-top-[10%]">
+      <source srcSet="/images/parallax2.avif" type="image/avif" />
+
       <img
         ref={imgRef}
         src="/images/parallax2.jpg"
         alt=""
-        className="absolute left-0 w-full object-cover object-center pointer-events-none"
-        style={{ height: '120%', top: '-10%' }}
+        className="absolute left-0 w-full object-cover object-center pointer-events-none h-[100%] top-[20%] lg:h-[120%] lg:-top-[10%]"
       />
-    </section>
+    </picture>
+
+  </section>
   )
 }
 
@@ -295,13 +389,18 @@ export default function Home() {
 
   {/* Gradient overlay */}
   <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b 
-                  from-black/30 via-black/15 to-transparent" />
+                  from-black/40 via-black/10 to-black/40" />
+
+
 
   <div className="absolute inset-0 z-0">
-    <ParallaxSection />
+    <ParallaxSectionnew />
   </div>
+  <StickyLabelbottom/>
 
 </section>
+
+<Showroom/>
 
     {/* Collections Carousel — all 5 collections */}
       <CollectionsCarousel />
@@ -336,7 +435,7 @@ export default function Home() {
 
       <section className="relative h-[100vh]">
 
-  <StickyLabel />
+  <StickyLabel2 />
     {/* Gradient overlay */}
   <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b 
                   from-black/50 via-black/25 to-transparent" />
@@ -344,11 +443,12 @@ export default function Home() {
   <div className="absolute inset-0">
     <ParallaxSection2 />
   </div>
+  <StickyLabelbottom2/>
 
 
 
 </section>
-  <ServicesCarousel/>
+  {/* <ServicesCarousel/> */}
 
   <ProductsCarousel/>
 
@@ -360,20 +460,20 @@ export default function Home() {
     className="absolute inset-0 w-full h-full object-cover"
   />
 
-  <div className="absolute inset-0 bg-black/60" />
+  <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-[#3d0404]/40 to-black/60" />
 
   <div className="relative z-10 max-w-3xl">
-    <h2 className="leading-tight font-semibold font-display text-[30px] md:text-[40px] text-white mb-4">
+    <h2 className="leading-tight font-semibold font-display text-[30px] md:text-[40px] text-[#f2df8f] mb-4">
       Ready to transform your space?
     </h2>
 
-    <p className="text-[18px] md:text-[24px] font-medium text-white mb-8">
+    <p className="text-[15px] md:text-[20px] font-medium text-white mb-8">
       Request samples, visit our showroom, or speak with a tile specialist.
     </p>
 
     <Link
       to="/contact"
-      className="inline-block bg-[#782423] text-white text-md  px-10 py-5 hover:bg-[#a64241] transition-colors duration-300"
+      className="bg-gradient-to-r from-[#ddb65b] via-[#f2df8f] to-[#ddb65b] font-medium text-[#1a1a1a] text-[15px] tracking-wider  px-6 py-3 rounded-lg hover:bg-[#a64241] transition-colors duration-300"
     >
       Get in Touch
     </Link>
@@ -381,14 +481,20 @@ export default function Home() {
 </section>
 
       {/* Why Petra */}
-      <section className="max-w-7xl mx-auto px-6 py-24 bg-white">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <section className="relative py-16 overflow-hidden bg-[#1a1a1a] px-[2%]" style={{
+          backgroundImage: "url('/images/Textures/menuwhite.avif'), url('/images/Textures/menuwhite.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}>
+
+          <div className="absolute inset-0  bg-gradient-to-r from-[#ffffff]/60 via-[#ffffff]/80 to-[#ffffff]/60 z-0 pointer-events-none" />
+        <div className="grid grid-cols-1 relative z-10  md:grid-cols-3 gap-12">
           {[
             { title: 'Extensive Product Range', desc: 'Drisya Marbles offers a wide selection of high-quality wall and floor tiles, sanitary ware, and plumbing fittings, catering to diverse customer needs.' },
             { title: 'Expert Guidance', desc: 'Our specialists have 20+ years of experience helping architects and homeowners find the perfect material.' },
             { title: 'Trade Program', desc: 'Exclusive pricing, priority samples, and dedicated support for interior designers and contractors.' },
           ].map(item => (
-            <div key={item.title} className="text-center">
+            <div key={item.title} className="text-center ">
               <div className="w-12 h-0.5 bg-[#782423] mx-auto mb-8" />
               <h3 className="font-display text-2xl mb-4">{item.title}</h3>
               <p className="text-[#5A4E44] leading-relaxed text-sm tracking-wide">{item.desc}</p>

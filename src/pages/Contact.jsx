@@ -52,13 +52,13 @@ export default function Contact() {
   }
 
   return (
-    <main className="pt-20">
+    <main className="pt-20 bg-[#fdfaef]">
       <div className="max-w-7xl mx-auto px-6 pb-24">
 
         {/* Both headings on the same row, same vertical level */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 py-10">
           <h1 className="font-display font-semibold text-[25px] md:text-[40px] text-[#1A1A1A]">Get in Touch</h1>
-          <h2 className="font-display font-semibold text-[25px] md:text-[40px] text-[#1A1A1A] lg:pl-12">Visit our Showrooms</h2>
+          <h2 className="lg:flex font-display hidden font-semibold text-[25px] md:text-[40px] text-[#1A1A1A] lg:pl-12">Visit our Showrooms</h2>
         </div>
 
         {/* Content columns */}
@@ -83,15 +83,15 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-[15px] tracking-wide text-[#782423] mb-2">Name *</label>
+                    <label className="block text-[15px]  tracking-wide text-[#782423] mb-2">Name *</label>
                     <input required value={form.name} onChange={e => setForm({...form, name: e.target.value})}
-                      className="w-full bg-transparent border-b border-[#D4B896]/60 focus:border-[#782423] text-[#1A1A1A] py-3 text-sm tracking-wide focus:outline-none transition-colors placeholder-[#8B7A6A]/50"
+                      className="w-full bg-white border px-3 rounded-sm border-[#D4B896]/60 focus:border-[#782423] text-[#1A1A1A] py-3 text-sm tracking-wide focus:outline-none transition-colors placeholder-[#8B7A6A]/50"
                       placeholder="Your name" />
                   </div>
                   <div>
                     <label className="block text-[15px] tracking-wide text-[#782423] mb-2">Email *</label>
                     <input required type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})}
-                      className="w-full bg-transparent border-b border-[#D4B896]/60 focus:border-[#782423] text-[#1A1A1A] py-3 text-sm tracking-wide focus:outline-none transition-colors placeholder-[#8B7A6A]/50"
+                      className="w-full bg-white border px-3 rounded-sm border-[#D4B896]/60 focus:border-[#782423] text-[#1A1A1A] py-3 text-sm tracking-wide focus:outline-none transition-colors placeholder-[#8B7A6A]/50"
                       placeholder="your@email.com" />
                   </div>
                 </div>
@@ -100,13 +100,13 @@ export default function Contact() {
                   <div>
                     <label className="block text-[15px] tracking-wide text-[#782423] mb-2">Phone</label>
                     <input value={form.phone} onChange={e => setForm({...form, phone: e.target.value})}
-                      className="w-full bg-transparent border-b border-[#D4B896]/60 focus:border-[#782423] text-[#1A1A1A] py-3 text-sm tracking-wide focus:outline-none transition-colors placeholder-[#8B7A6A]/50"
+                      className="w-full bg-white border px-3 rounded-sm border-[#D4B896]/60 focus:border-[#782423] text-[#1A1A1A] py-3 text-sm tracking-wide focus:outline-none transition-colors placeholder-[#8B7A6A]/50"
                       placeholder="+1 (555) 000-0000" />
                   </div>
                   <div>
                     <label className="block text-[15px] tracking-wide text-[#782423] mb-2">Subject</label>
                     <select value={form.subject} onChange={e => setForm({...form, subject: e.target.value})}
-                      className="w-full bg-transparent border-b border-[#D4B896]/60 focus:border-[#782423] text-[#1A1A1A] py-3 text-sm tracking-wide focus:outline-none transition-colors">
+                      className="w-full bg-white border rounded-sm pl-3 pr-10 border-[#D4B896]/60 focus:border-[#782423] text-[#1A1A1A] py-3 text-sm tracking-wide focus:outline-none transition-colors">
                       <option>General Inquiry</option>
                       <option>Request Sample</option>
                       <option>Get a Quote</option>
@@ -120,14 +120,14 @@ export default function Contact() {
                 <div>
                   <label className="block text-[15px] tracking-wide text-[#782423] mb-2">Message *</label>
                   <textarea required rows={6} value={form.message} onChange={e => setForm({...form, message: e.target.value})}
-                    className="w-full bg-transparent border-b border-[#D4B896]/60 focus:border-[#782423] text-[#1A1A1A] py-3 text-sm tracking-wide focus:outline-none transition-colors placeholder-[#8B7A6A]/50 resize-none"
+                    className="w-full bg-white px-3 border rounded-sm border-[#D4B896]/60 focus:border-[#782423] text-[#1A1A1A] py-3 text-sm tracking-wide focus:outline-none transition-colors placeholder-[#8B7A6A]/50 resize-none"
                     placeholder="Tell us about your project..." />
                 </div>
 
                 {error && <p className="text-red-500 text-sm tracking-wide">{error}</p>}
 
                 <button type="submit" disabled={loading}
-                  className="w-full bg-[#782423] text-white text-[14px] tracking-wide py-5 hover:bg-[#1A1A1A] transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-3">
+                  className="w-full rounded-md bg-gradient-to-r from-[#711a19] via-[#7e2e1e] to-[#711a19] text-white text-[14px] tracking-wide py-5 hover:bg-[#1A1A1A] transition-colors duration-300 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-3">
                   {loading ? (
                     <>
                       <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -144,10 +144,11 @@ export default function Contact() {
 
           {/* Right column — maps */}
           <div className="lg:pl-12">
+            <h2 className="flex lg:hidden font-display  font-semibold text-[25px] md:text-[40px] text-[#1A1A1A] lg:pl-12 pb-10">Visit our Showrooms</h2>
             <div className="space-y-8">
               {showrooms.map((room) => (
                 <div key={room.name}>
-                  <div className="w-full overflow-hidden mb-3" style={{ height: '220px' }}>
+                  <div className="w-full rounded-sm overflow-hidden mb-3" style={{ height: '220px' }}>
                     <iframe
                       src={room.src}
                       width="100%"

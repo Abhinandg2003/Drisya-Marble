@@ -73,14 +73,14 @@ export default function CollectionsCarousel() {
   }
 
   return (
-    <section className="py-24 overflow-hidden bg-white">
+    <section className="py-24 overflow-hidden bg-[#fcfbf7]">
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 mb-10">
-        <p className="flex justify-center text-[18px] md:text-[24px] font-medium  text-[#1a1a1a] ">Collections</p>
-        <h2 className="flex justify-center text-center leading-tight font-semibold font-display text-[30px] md:text-[40px] text-[#1A1A1A]">Discover our inspiring unique collections.</h2>
-        <a href="/collections">
-            <p className="mt-2 flex justify-center items-center text-[18px] md:text-[24px] font-medium  text-[#1a1a1a] ">Explore Collections <span> <ArrowRight className='flex justify-center ml-2 bg-[#782423] rounded-full text-white p-1'/> </span> </p>
-        </a>
+        <p className="flex justify-center text-[18px] md:text-[24px] font-medium  text-[#782423] ">Collections</p>
+        <h2 className="flex justify-center text-center leading-tight font-semibold font-display text-[30px] md:text-[40px] text-[#782423]">Discover our inspiring unique collections.</h2>
+        <Link to="/products"
+             className="mt-2 flex justify-center items-center text-[18px] md:text-[24px] font-medium  text-[#782423] ">Explore Collections <span> <ArrowRight className='flex justify-center ml-2 bg-[#782423] rounded-full text-white p-1'/> </span>
+        </Link>
       </div>
 
       {/* Track */}
@@ -94,15 +94,18 @@ export default function CollectionsCarousel() {
             key={col.slug}
             data-card
             to={`/collections/${col.slug}`}
-            className="relative flex-shrink-0 overflow-hidden group w-[90vw] md:w-[500px] h-[280px] "
+            className="relative flex-shrink-0 overflow-hidden rounded-sm aspect-square group w-[90vw] md:w-[350px]  "
           >
+            <picture>
+              <source srcSet={col.imageAvif} type="image/avif" />
             <img
               src={col.image}
               alt={col.name}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               draggable={false}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            </picture>
+            <div className="absolute inset-0 bg-gradient-to-t from-[black]/70 via-black/10 to-transparent" />
 
             <span className="absolute top-4 right-4 font-display text-4xl text-white/10 leading-none select-none">
               {String(i + 1).padStart(2, '0')}

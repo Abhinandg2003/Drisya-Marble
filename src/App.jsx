@@ -11,6 +11,12 @@ import Contact from './pages/Contact'
 import SearchResults from './pages/SearchResults'
 import Catalogues from './pages/Catalogues'
 import ScrollToTop from "./components/ScrollToTop"
+import Blogs from './pages/Blogs'
+import BrandsPage from './pages/BrandsPage'
+import BrandsPageNew from './pages/BrandPageNew'
+import Careers from './pages/Careers'
+import CareersApply from './pages/CareersApply'
+import BlogDetail from './pages/Blogdetail'
 
 export default function App() {
   return (
@@ -19,17 +25,23 @@ export default function App() {
       {/* LenisProvider wraps everything so every page and component gets
           smooth scroll. It also wires up GSAP ScrollTrigger automatically. */}
       <LenisProvider>
-        <div className="min-h-screen bg-[#F5F0EB] text-[#1A1A1A] font-body">
+        <div className="min-h-screen bg-[#FFFFFF] text-[#1A1A1A] font-body">
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/products/:slug" element={<ProductDetail />} />
             <Route path="/collections/:slug" element={<CollectionPage />} />
-            <Route path="/catalogues" element={<Catalogues />} />
+            <Route path="/blogs" element={<Blogs />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/search" element={<SearchResults />} />
+            <Route path="/brands" element={<BrandsPage />} />
+            <Route path="/brandsnew" element={<BrandsPageNew />} />
+            <Route path="/catalogue" element={<Catalogues />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/careers/apply" element={<CareersApply />} />
+            <Route path="/blogs/:slug" element={<BlogDetail />} />
           </Routes>
           <Footer />
         </div>

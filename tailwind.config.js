@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'navxl': '1450px',
+      },
       fontFamily: {
         // display: ['Cormorant Garamond', 'serif'],
         // body: ['DM Sans', 'sans-serif'],

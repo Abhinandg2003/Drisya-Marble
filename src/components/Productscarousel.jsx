@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { products } from '../data'
+import { products,productItems } from '../data'
 import { ArrowRight } from 'lucide-react';
 
 // Dot positions per product (as % from left, % from top)
@@ -17,26 +17,26 @@ export default function ProductsCarousel() {
   const [openDot, setOpenDot] = useState(null)
 
   return (
-    <section className="pb-8 bg-white">
+    <section className="pb-8 bg-[#fcfbf7] pt-10">
       {/* Header */}
       <div className="max-w-7xl mx-auto px-6 mb-10">
-        <p className="flex justify-center text-[18px] font-medium md:text-[24px] text-[#1a1a1a]">Inspiration</p>
-        <h2 className="flex justify-center font-semibold font-display text-[40px] text-[#1a1a1a] text-center">
+        <p className="flex justify-center text-[18px] font-medium md:text-[24px] text-[#782423]">Inspiration</p>
+        <h2 className="flex justify-center font-semibold font-display text-[40px] text-[#782423] text-center">
           Discover our inspiring unique products.
         </h2>
       </div>
 
       {/* Grid */}
-      <div className="max-w-screen mx-auto px-6 grid grid-cols-2 lg:grid-cols-3 gap-4">
-        {products.slice(0, 6).map((product, i) => {
+      <div className="max-w-screen mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {productItems.slice(0, 6).map((productitem, i) => {
           const dot = dotPositions[i]
           const isOpen = openDot === i
 
           return (
-            <div key={product.slug} className="relative aspect-square overflow-hidden group">
+            <div key={productitem.slug} className="relative aspect-square rounded-sm overflow-hidden group">
               <img
-                src={product.image}
-                alt={product.name}
+                src={productitem.image}
+                alt={productitem.name}
                 className="w-full h-full object-cover"
                 draggable={false}
               />
@@ -51,7 +51,7 @@ export default function ProductsCarousel() {
                 onClick={() => setOpenDot(isOpen ? null : i)}
                 onMouseEnter={() => setOpenDot(i)}
                 onMouseLeave={() => setOpenDot(null)}
-                aria-label={product.name}
+                aria-label={productitem.name}
               >
                 {/* Pulse rings */}
                 <span className="absolute inset-0 -m-1 rounded-full bg-white/50 animate-[pulseDot_2.8s_infinite]" />
@@ -75,15 +75,16 @@ export default function ProductsCarousel() {
                 onMouseLeave={() => setOpenDot(null)}
               >
                 <div className="bg-white shadow-xl pl-5 pr-8 py-6 min-w-[160px] whitespace-nowrap">
-                  <p className="text-[14px] md:text-[20px] font-medium text-[#1A1A1A] mb-3 text-left">{product.name}</p>
+                  <p className="text-[16px] md:text-[20px] font-medium text-[#1A1A1A] font-display text-left">{productitem.name}</p>
+                  <p className="text-[13px] md:text-[15px] font-medium text-[#1A1A1A] mb-3 text-left">{productitem.brand}</p>
                   {/* <Link
                     to={`/products/${product.slug}`}
                     className="block text-center text-[10px] tracking-[0.2em] uppercase bg-[#782423] text-white px-3 py-2 hover:bg-[#1A1A1A] transition-colors duration-200"
                   >
                     Explore
                   </Link> */}
-                  <a href={`/products/${product.slug}`}>
-            <p className="mt-2 flex justify-start items-start text-[10px] md:text-[15px] font-medium  text-[#1a1a1a] ">Explore Collections <span> <ArrowRight className='flex justify-center ml-2 bg-[#782423] rounded-full text-white p-1'/> </span> </p>
+                  <a href={`/products/${productitem.slug}`}>
+            <p className="mt-2 flex justify-start items-center text-[13px] md:text-[15px] font-medium  text-[#1a1a1a] ">Explore Products <span> <ArrowRight className='flex justify-center ml-2 bg-[#782423] rounded-full text-white p-1'/> </span> </p>
         </a>
                 </div>
                 {/* Little triangle pointer */}
